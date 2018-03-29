@@ -1,3 +1,7 @@
+import database as db
+import mysql.connector
+
+
 story = """
 Welcome to the adventurous world of Pokemon\n
 Here your goal is to catch as many pokemon that you can, and\n
@@ -15,15 +19,18 @@ def askIfNew():
     if ans == "1":
         print("Please enter a name to create your Pokemon trainer ")
         name = input("Trainer Name: ")
-        createUser(name)
+        gen = input("Trainer Gender: ")
+        db.createUser(name, gen)
     return
 
-def createUser(input):
-    return
+def mySqlCon():
+    return mysql.connector.connect(user=db.getUserName(), database='pokemon')
 
 def main():
     print (storyString())
     askIfNew()
+
+
 if __name__ == "__main__":
     main()
 
