@@ -1,5 +1,5 @@
 import mysql.connector
-import secrets as db
+from app import secrets as db
 def mySqlCon():
     return mysql.connector.connect(user=db.getUserName(), database='pokemon')
 def createUser(name, gen):
