@@ -8,12 +8,15 @@ train them to become a Pokemon master! As you advance through your story\n
 you will be able to battle Gym Leaders and other trainers to level up your pokemon. \n
 
 """
+over = False
+
 def init():
     settings.gameOver = False
-
 def storyString():
     return story
 
+def connectedTowns():
+    return
 
 def askIfNew():
     settings.gameOver = False
@@ -46,7 +49,6 @@ def actions():
     \t3 to list pokemon that can be found at current location
     \t4 to attempt to catch a wild pokemon
     \texit to exit
-
     """
     prompt = (msg)
     ans = input(prompt)
@@ -58,7 +60,6 @@ def actions():
         act.listLocalPokemon(settings.trainerID)
     if ans == "4":
         act.catchPokemon(settings.trainerID)
-
 
 
 
