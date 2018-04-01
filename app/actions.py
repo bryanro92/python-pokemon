@@ -54,7 +54,7 @@ def listLocalPokemon(tID):
     print("Pokemon that can be found here: ")
     for poke in result:
         print("\t"+pokeID2Name(poke[0]))
-    return 0
+    return result
 
 def pokeID2Name(pID):
     con = db.mySqlCon()
@@ -66,7 +66,16 @@ def pokeID2Name(pID):
 
 def catchPokemon(tID):
     pokeList = listLocalPokemon(tID)
+
     choice = pokeList[random.randrange(len(pokeList)-1)]
+    print(choice[0])
+    print("A wild "+pokeID2Name(choice[0])+" has appeared!")
+    ans = input("Press 1 to battle or 2 to run away!")
+    if ans == "1":
+        print("//TODO implement: battle")
+    if ans == "2":
+        print("run away")
+
     return choice
 
 def listTowns():
@@ -81,10 +90,6 @@ def listTowns():
         i=i+1
     return result
 
-def moveTown(tID):
-
-
-    return
 
 def travel(tID):
     listTowns()
@@ -92,7 +97,7 @@ def travel(tID):
     print(ans)
     con = db.mySqlCon()
     cursor = con.cursor()
-    query = "UPDATE `pokemon`.`trainers` SET `towns_townID`='"+str(ans)+"' WHERE `tID`='"+tID+"';"
+    query = "UPDATE `pokemon`.`trainers` SET `towns_townID`='"+str(ans)+"' WHERE `tID`='"+str(tID)+"';"
     cursor.execute(query)
     con.commit()
     return

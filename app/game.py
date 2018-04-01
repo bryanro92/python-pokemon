@@ -57,11 +57,12 @@ def actions():
     \t3 to list pokemon that can be found at current location
     \t4 to list available towns
     \t5 to travel to a new location
-    \tto attempt to catch a wild pokemon
-    \texit to exit
+    \t6 to attempt to catch a wild pokemon
+    \t7 to battle the gym leader in current town
+    \texit to exit the game
     """
-    prompt = (msg)
-    ans = input(prompt)
+    print(msg)
+    ans = input("action: ")
     print("\n")
     if ans == "1":
         act.listCaughtPokemon(settings.trainerID)
@@ -72,8 +73,12 @@ def actions():
     if ans == "4":
         act.listTowns()
     if ans == "5":
-        #act.catchPokemon(settings.trainerID)
         act.travel(settings.trainerID)
     if ans == "exit":
         setGameOver(True)
+    if ans =="6":
+        act.catchPokemon(settings.trainerID)
+
+
+
 
