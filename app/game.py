@@ -12,6 +12,7 @@ over = False
 
 def init():
     settings.gameOver = False
+
 def storyString():
     return story
 
@@ -37,6 +38,7 @@ def askIfNew():
         return
     elif ans =="exit":
         settings.gameOver = True
+        self.over = True
         exit(0)
     else:
         print("\nType 'exit' to quit or\n")
