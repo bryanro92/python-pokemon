@@ -36,6 +36,7 @@ def askIfNew():
         print("The journey continues...\n\n")
         return
     elif ans =="exit":
+        settings.gameOver = True
         exit(0)
     else:
         print("\nType 'exit' to quit or\n")
@@ -47,7 +48,8 @@ def actions():
     Press:\n\t1 to list your current pokemon party
     \t2 to list your current location
     \t3 to list pokemon that can be found at current location
-    \t4 to attempt to catch a wild pokemon
+    \t4 to list available towns
+    \t5 to attempt to catch a wild pokemon
     \texit to exit
     """
     prompt = (msg)
@@ -59,6 +61,8 @@ def actions():
     if ans == "3":
         act.listLocalPokemon(settings.trainerID)
     if ans == "4":
+        act.listTowns()
+    if ans == "5":
         act.catchPokemon(settings.trainerID)
 
 
