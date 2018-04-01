@@ -6,6 +6,5 @@ def main():
     while game.over == False:
         game.actions()
 
-
 if __name__ == '__main__':
     main()

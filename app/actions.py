@@ -13,11 +13,13 @@ def listCaughtPokemon(tID):
         print("You have not caught any pokemon!")
     else:
         print("here is all your pokemans: ")
-
+        for poke in result:
+            print("\t"+pokeID2Name(poke[0]))
 
 
     cursor.close()
     con.close()
+    return
 
 def listLocation(tID):
     con = db.mySqlCon()
@@ -88,4 +90,9 @@ def travel(tID):
     listTowns()
     ans = input("Please enter the number for the location you'd like to travel to: ")
     print(ans)
+    con = db.mySqlCon()
+    cursor = con.cursor()
+    query = "UPDATE `pokemon`.`trainers` SET `towns_townID`='"+str(ans)+"' WHERE `tID`='"+tID+"';"
+    cursor.execute(query)
+    con.commit()
     return
