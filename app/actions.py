@@ -76,7 +76,7 @@ def catchPokemon(tID):
     if ans == "2":
         print("run away")
 
-    return choice
+    return
 
 def listTowns():
     con = db.mySqlCon()
