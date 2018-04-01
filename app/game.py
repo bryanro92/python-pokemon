@@ -49,11 +49,13 @@ def actions():
     \t2 to list your current location
     \t3 to list pokemon that can be found at current location
     \t4 to list available towns
-    \t5 to attempt to catch a wild pokemon
+    \t5 to travel to a new location
+    \tto attempt to catch a wild pokemon
     \texit to exit
     """
     prompt = (msg)
     ans = input(prompt)
+    print("\n")
     if ans == "1":
         act.listCaughtPokemon(settings.trainerID)
     if ans == "2":
@@ -64,7 +66,6 @@ def actions():
         act.listTowns()
     if ans == "5":
         #act.catchPokemon(settings.trainerID)
-        act.listLocalPokemon(15)
-
+        act.travel(settings.trainerID)
 
 
