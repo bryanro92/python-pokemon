@@ -8,7 +8,6 @@ train them to become a Pokemon master! As you advance through your story\n
 you will be able to battle Gym Leaders and other trainers to level up your pokemon. \n
 
 """
-over = False
 
 def init():
     settings.gameOver = False
@@ -37,13 +36,19 @@ def askIfNew():
         print("The journey continues...\n\n")
         return
     elif ans =="exit":
-        settings.gameOver = True
-        self.over = True
+        setGameOver(True)
         exit(0)
     else:
         print("\nType 'exit' to quit or\n")
         askIfNew()
     return
+
+def setGameOver(bool):
+    settings.gameOver = bool
+    return settings.gameOver
+
+def getGameOver():
+    return settings.gameOver
 
 def actions():
     msg = """
@@ -69,5 +74,6 @@ def actions():
     if ans == "5":
         #act.catchPokemon(settings.trainerID)
         act.travel(settings.trainerID)
-
+    if ans == "exit":
+        setGameOver(True)
 
