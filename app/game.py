@@ -63,8 +63,8 @@ def actions():
     if ans == "4":
         act.listTowns()
     if ans == "5":
-        act.catchPokemon(settings.trainerID)
-
+        #act.catchPokemon(settings.trainerID)
+        act.listLocalPokemon(15)
 
 
 
