@@ -24,7 +24,7 @@ def listLocation(tID):
     cursor.close()
     con.close()
 
-    return
+    return result[0]
 
 def tID2Name(tID):
     con = db.mySqlCon()
@@ -33,7 +33,6 @@ def tID2Name(tID):
     cursor.execute(query)
     result = cursor.fetchone()
     print("town name2: ", result[0])
-
     cursor.close()
     con.close()
     return result[0]
@@ -43,7 +42,8 @@ def listLocalPokemon(tID):
     query = "SELECT * from wild_pokemon_found_in_towns where towns_townID like "+str(location)
     con = db.mySqlCon()
     cursor = con.cursor()
-    result = cursor.execute(query)
+    cursor.execute(query)
+    result = cursor.fetchall()
     print(result)
     cursor.close()
     con.close()
@@ -54,6 +54,14 @@ def catchPokemon(tID):
     choice = pokeList[random.randrange(len(pokeList)-1)]
     return choice
 
+def listTowns():
+    con = db.mySqlCon()
+    cursor = con.cursor()
+    cursor.execute("SELECT townName from towns")
+    result = cursor.fetchall()
+    for city in result:
+        print("", city)
+    return result
 
 def travel(location):
 
