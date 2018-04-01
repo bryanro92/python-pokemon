@@ -6,20 +6,26 @@ def listCaughtPokemon(tID):
     con = db.mySqlCon()
     cursor = con.cursor()
     query = "select * from wild_pokemon_caught_by_trainers where trainers_tID like "+str(tID)
-    result = cursor.fetchall(cursor.execute(query))
+    cursor.execute(query)
+    result = cursor.fetchall()
     print (result)
+    if len(result) < 1:
+        print("You have not caught any pokemon!")
+    else:
+        print("here is all your pokemans: ")
+
+
+
     cursor.close()
     con.close()
 
 def listLocation(tID):
     con = db.mySqlCon()
     cursor = con.cursor()
-    print("tid: ", tID)
     query = "select towns_townID from trainers where tID like "+str(tID)
     cursor.execute(query)
     result = cursor.fetchone()
-    print ("town result: ", result[0])
-    print ("town name: ", tID2Name(result[0]))
+    print ("Current location: ", tID2Name(result[0]))
     cursor.close()
     con.close()
     return result[0]
@@ -30,24 +36,22 @@ def tID2Name(tID):
     query = "select townName from towns where townID like "+str(tID)
     cursor.execute(query)
     result = cursor.fetchone()
-    print("town name2: ", result[0])
     cursor.close()
     con.close()
     return result[0]
 
 def listLocalPokemon(tID):
     location = listLocation(tID)
-    print("location = ",location)
     query = "SELECT wild_pokemon_pID from wild_pokemon_found_in_towns where towns_townID like "+str(location)
     con = db.mySqlCon()
     cursor = con.cursor()
     cursor.execute(query)
     result = cursor.fetchall()
-    print("results of local pokemon: ",result)
     cursor.close()
     con.close()
+    print("Pokemon that can be found here: ")
     for poke in result:
-        print(pokeID2Name(poke[0]))
+        print("\t"+pokeID2Name(poke[0]))
     return 0
 
 def pokeID2Name(pID):
@@ -68,10 +72,20 @@ def listTowns():
     cursor = con.cursor()
     cursor.execute("SELECT townName from towns")
     result = cursor.fetchall()
+    print("Towns you can travel to: ")
+    i=0
     for city in result:
-        print("", city)
+        print("\t"+str(i)+": "+city[0])
+        i=i+1
     return result
 
-def travel(location):
+def moveTown(tID):
 
+
+    return
+
+def travel(tID):
+    listTowns()
+    ans = input("Please enter the number for the location you'd like to travel to: ")
+    print(ans)
     return
