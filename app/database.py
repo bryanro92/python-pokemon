@@ -2,16 +2,18 @@ import mysql.connector
 from app import secrets as db
 def mySqlCon():
     return mysql.connector.connect(user=db.getUserName(), database='pokemon')
+
 def createUser(name, gen):
     con = mySqlCon()
     cursor = con.cursor()
     string = "INSERT INTO `trainers` (`tID`, `tName`, `tGender`, `towns_townID`) VALUES (NULL,'"+name+"', '"+gen+"', '0')"
     cursor.execute(string)
     con.commit()
-    message = "Great! \nWelcome to the pokemon world "+name+"."
+    message = "\nWelcome to the pokemon world "+name+"."
+    print(message)
     cursor.close()
     con.close()
-    message += message +"\n Your trainer identification number is:\n\t"+str(getNewtID())+"\nDon't forget this! It will be used to track your progress.\n"
+    message = "Your trainer identification number is:\n\t"+str(getNewtID())+"\nDon't forget this! It will be used to track your progress.\n"
     return message
 
 def getNewtID():

@@ -2,12 +2,49 @@ from app import database as db
 from app import actions as act
 from app import settings
 story = """
-Welcome to the adventurous world of Pokemon\n
-Here your goal is to catch as many pokemon that you can, and\n
-train them to become a Pokemon master! As you advance through your story\n
-you will be able to battle Gym Leaders and other trainers to level up your pokemon. \n
+Welcome to the adventurous world of Pokemon
+Here your goal is to catch as many pokemon that you can, and
+train them to become a Pokemon master! As you advance through your story
+you will be able to battle Gym Leaders and other trainers to level up your pokemon.
 
 """
+def printIntro():
+    intro = """
+                                      ,'\
+        _.----.        ____         ,'  _\   ___    ___     ____
+    _,-'       `.     |    |  /`.   \,-'    |   \  /   |   |    \  |`.
+    \      __    \    '-.  | /   `.  ___    |    \/    |   '-.   \ |  |
+     \.    \ \   |  __  |  |/    ,','_  `.  |          | __  |    \|  |
+       \    \/   /,' _`.|      ,' / / / /   |          ,' _`.|     |  |
+        \     ,-'/  /   \    ,'   | \/ / ,`.|         /  /   \  |     |
+         \    \ |   \_/  |   `-.  \    `'  /|  |    ||   \_/  | |\    |
+          \    \ \      /       `-.`.___,-' |  |\  /| \      /  | |   |
+           \    \ `.__,'|  |`-._    `|      |__| \/ |  `.__,'|  | |   |
+            \_.-'       |__|    `-._ |              '-.|     '-.| |   |
+                                    `'                            '-._|
+
+
+    """
+    print(intro)
+    return
+
+def printBye():
+    msg = """
+    `;-.          ___,
+      `.`\_...._/`.-"`
+        \        /      ,
+        /()   () \    .' `-._
+       |)  .    ()\  /   _.'
+       \  -'-     ,; '. <
+        ;.__     ,;|   > \
+       / ,    / ,  |.-'.-'
+      (_/    (_/ ,;|.<`
+        \    ,     ;-`
+         >   \    /
+        (_,-'`> .'
+             (_,'    
+    """
+    print(msg)
 
 def init():
     settings.gameOver = False
@@ -59,6 +96,7 @@ def actions():
     \t5 to travel to a new location
     \t6 to attempt to catch a wild pokemon
     \t7 to battle the gym leader in current town
+    \t-------------------------------------------
     \texit to exit the game
     """
     print(msg)
