@@ -78,6 +78,10 @@ def catchPokemon(tID):
 
     return
 
+def wildPokemon():
+    return
+
+
 def listTowns():
     con = db.mySqlCon()
     cursor = con.cursor()
