@@ -73,12 +73,16 @@ def catchPokemon(tID):
     ans = input("Press 1 to battle or 2 to run away!")
     if ans == "1":
         print("//TODO implement: battle")
+
     if ans == "2":
         print("run away")
 
     return
 
-def wildPokemon():
+def wildPokemon(pID):
+    pokemon = pokeID2Name(pID)
+    if random.randRange(100) < 25:
+        print("You did a thing! %s", pokemon)
     return
 
 
