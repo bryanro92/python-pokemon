@@ -91,6 +91,20 @@ def catchPokemon(tID):
     return
 
 def chooseStartingPokemon(tID):
+    choice = input("Please select one of the following starting pokemon:\n\t0) Bulbasaur\n\t1) Charmander\n\t2)Squirtle\n\tchoice: ")
+    rename = input("Please press 1 if you'd like to rename your Pokemon: ")
+    if rename == "1":
+        name = input("Please enter your pokemons nickname: ")
+    if choice == "0":
+       return
+
+
+    if choice == "1":
+        return
+    if choice == "2":
+        return
+
+
     return 0
 
 def wildPokemon(pID):
