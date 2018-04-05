@@ -101,21 +101,51 @@ def wildPokemon(pID):
     ans = input("Select a Pokemon to send out: ")
     print(""+trainerPokeID2Name(ans)+"! I choose you!")
 
-    #print(pokeID2Name(db.returnPokemonIDforTrainer(ans, settings.trainerID)))
     while inBattle:
         ans = input("Press 1 to attempt to catch "+wildPokemon+", or 2 to attack: ")
-        if ans == 1:
-            rng = random.randRange(100)
+        if ans == "1":
+            print(wildPokemon+"'s health is "+str(wildHP))
+            if wildHP > 50:
+                rng = random.randrange(100)
+            elif wildHP > 25:
+                rng = random.randrange(50)
+            else:
+                rng = random.randrange(30)
             print("Your rng is: ", rng)
             if rng < 25:
-                print("You did a thing! %s", wildPokemon)
+                print(wildPokemon+" was captured!")
+                if str(input("Press 1 to give your "+wildPokemon+" a nickname: ")) == "1":
+                        name = input("Please enter a nickname for your "+wildPokemon+": ")
+                else:
+                    name = wildPokemon
+                trainerCatchesPokemon(pID, name)
+                inBattle = False
                 return
-        if ans == 2:
-            print("battle logic!")
-            wildHP = wildHP - random.randRange(20)
+        if ans == "2":
+            print(wildPokemon+"'s health is "+str(wildHP))
+            dmg = random.randrange(20)
+            print("You do "+str(dmg)+" damage to "+wildPokemon)
+            wildHP = wildHP - dmg
+            if wildHP < 1:
+                print(wildPokemon+" fainted!")
+                inBattle = False
+                return
     return 0
 
+def trainerCatchesPokemon(pID, name):
+    con = db.mySqlCon()
+    cursor = con.cursor()
+    if random.randrange(10) < 5:
+        gender = "M"
+    else:
+        gender = "F"
 
+    query = "INSERT INTO `wild_pokemon_caught_by_trainers` (`pokemonID`, `wild_pokemon_pID`, `trainers_tID`, `pGender`, `pLevel`, `personalName`, `pokeHP`, `pokeHPMAX`) VALUES (NULL,"+str(pID)+", 1, '"+gender+"', 1, '"+name+"',100,100)"
+    cursor.execute(query)
+    con.commit()
+    cursor.close()
+    con.close()
+    return
 
 def listTowns():
     con = db.mySqlCon()
