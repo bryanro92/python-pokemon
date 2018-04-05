@@ -1,11 +1,12 @@
 from app import database as db
+from app import settings
 import random
 
 
 def listCaughtPokemon(tID):
     con = db.mySqlCon()
     cursor = con.cursor()
-    query = "select * from wild_pokemon_caught_by_trainers where trainers_tID like "+str(tID)
+    query = "select pokemonID from wild_pokemon_caught_by_trainers where trainers_tID like "+str(tID)
     cursor.execute(query)
     result = cursor.fetchall()
     print (result)
@@ -13,9 +14,10 @@ def listCaughtPokemon(tID):
         print("You have not caught any pokemon!")
     else:
         print("here is all your pokemans: ")
+        i = 1
         for poke in result:
-            print("\t"+pokeID2Name(poke[0]))
-
+            print("\t"+str(i)+") "+trainerPokeID2Name(poke[0]))
+            i=i+1
 
     cursor.close()
     con.close()
@@ -53,13 +55,22 @@ def listLocalPokemon(tID):
     con.close()
     print("Pokemon that can be found here: ")
     for poke in result:
-        print("\t"+pokeID2Name(poke[0]))
+        print("\t"+wildPokeID2Name(poke[0]))
     return result
 
-def pokeID2Name(pID):
+
+def wildPokeID2Name(pID):
     con = db.mySqlCon()
     cursor = con.cursor()
     query = "select pName from wild_pokemon where pID like "+str(pID)
+    cursor.execute(query)
+    result = cursor.fetchone()
+    return result[0]
+
+def trainerPokeID2Name(pID):
+    con = db.mySqlCon()
+    cursor = con.cursor()
+    query = "select personalName from wild_pokemon_caught_by_trainers where trainers_tID like "+settings.trainerID+" and pokemonID like "+str(pID)
     cursor.execute(query)
     result = cursor.fetchone()
     return result[0]
@@ -69,21 +80,41 @@ def catchPokemon(tID):
 
     choice = pokeList[random.randrange(len(pokeList)-1)]
     print(choice[0])
-    print("A wild "+pokeID2Name(choice[0])+" has appeared!")
-    ans = input("Press 1 to battle or 2 to run away!")
+    print("A wild "+wildPokeID2Name(choice[0])+" has appeared!")
+    ans = input("Press 1 to battle or 2 to run away: ")
     if ans == "1":
         print("//TODO implement: battle")
-
+        wildPokemon(choice[0])
     if ans == "2":
         print("run away")
 
     return
 
+def chooseStartingPokemon(tID):
+    return 0
+
 def wildPokemon(pID):
-    pokemon = pokeID2Name(pID)
-    if random.randRange(100) < 25:
-        print("You did a thing! %s", pokemon)
-    return
+    wildPokemon = wildPokeID2Name(pID)
+    inBattle = True
+    wildHP = 100
+    listCaughtPokemon(settings.trainerID)
+    ans = input("Select a Pokemon to send out: ")
+    print(""+trainerPokeID2Name(ans)+"! I choose you!")
+
+    #print(pokeID2Name(db.returnPokemonIDforTrainer(ans, settings.trainerID)))
+    while inBattle:
+        ans = input("Press 1 to attempt to catch "+wildPokemon+", or 2 to attack: ")
+        if ans == 1:
+            rng = random.randRange(100)
+            print("Your rng is: ", rng)
+            if rng < 25:
+                print("You did a thing! %s", wildPokemon)
+                return
+        if ans == 2:
+            print("battle logic!")
+            wildHP = wildHP - random.randRange(20)
+    return 0
+
 
 
 def listTowns():

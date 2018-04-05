@@ -37,4 +37,12 @@ def currentUser(tID):
     con.close()
     return name
 
-
+def returnPokemonIDforTrainer(pID, tID):
+    con = mySqlCon()
+    cursor = con.cursor()
+    query = "Select wild_pokemon_pID from wild_pokemon_caught_by_trainers where trainers_tID like "+tID+ " and pokemonID like "+pID
+    cursor.execute(query)
+    poke = cursor.fetchone()
+    cursor.close()
+    con.close()
+    return poke[0]

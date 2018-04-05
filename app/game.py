@@ -42,7 +42,7 @@ def printBye():
         \    ,     ;-`
          >   \    /
         (_,-'`> .'
-             (_,'    
+             (_,'
     """
     print(msg)
 
@@ -65,7 +65,9 @@ def askIfNew():
         gen = input("Trainer Gender: ")
         print(db.createUser(name, gen))
         settings.trainerID = db.getNewtID()
+        act.chooseStartingPokemon(settings.trainerID)
         return
+
     if ans == "2":
         name = input("\nPlease enter your trainer ID number: ")
         settings.trainerID = name
