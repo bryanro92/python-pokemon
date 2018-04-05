@@ -163,7 +163,7 @@ def trainerCatchesPokemon(pID, name):
     else:
         gender = "F"
 
-    query = "INSERT INTO `wild_pokemon_caught_by_trainers` (`pokemonID`, `wild_pokemon_pID`, `trainers_tID`, `pGender`, `pLevel`, `personalName`, `pokeHP`, `pokeHPMAX`) VALUES (NULL,"+str(pID)+","+str(settings.trainerID)+", '"+gender+"', 1, '"+name+"',100,100)"
+    query = "INSERT INTO `wild_pokemon_caught_by_trainers` (`pokemonID`, `wild_pokemon_pID`, `trainers_tID`, `pGender`, `pLevel`, `personalName`, `pokeHP`, `pokeHPMAX`) VALUES ("+str(settings.caughtPokeID)+","+str(pID)+","+str(settings.trainerID)+", '"+gender+"', 1, '"+name+"',100,100)"
     cursor.execute(query)
     con.commit()
     cursor.close()
