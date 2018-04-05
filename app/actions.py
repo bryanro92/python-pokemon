@@ -70,7 +70,7 @@ def wildPokeID2Name(pID):
 def trainerPokeID2Name(pID):
     con = db.mySqlCon()
     cursor = con.cursor()
-    query = "select personalName from wild_pokemon_caught_by_trainers where trainers_tID like "+settings.trainerID+" and pokemonID like "+str(pID)
+    query = "select personalName from wild_pokemon_caught_by_trainers where trainers_tID like "+str(settings.trainerID)+" and pokemonID like "+str(pID)
     cursor.execute(query)
     result = cursor.fetchone()
     return result[0]
@@ -90,21 +90,30 @@ def catchPokemon(tID):
 
     return
 
+def listInventory():
+    return 0
+
+def giveItemToPoke(iID):
+    return 0
+
+def pokeDetails(pID):
+    return 0
+
 def chooseStartingPokemon(tID):
-    choice = input("Please select one of the following starting pokemon:\n\t0) Bulbasaur\n\t1) Charmander\n\t2)Squirtle\n\tchoice: ")
-    rename = input("Please press 1 if you'd like to rename your Pokemon: ")
-    if rename == "1":
-        name = input("Please enter your pokemons nickname: ")
-    if choice == "0":
-       return
-
-
+    choice = input("Please select one of the following starting pokemon:\n\t1) Bulbasaur\n\t2) Charmander\n\t3) Squirtle\n\tchoice: ")
+    name = input("Please enter a name for your Pokemon: ")
     if choice == "1":
+        trainerCatchesPokemon(1,name)
+        print("Bulbasaur! Great choice")
         return
     if choice == "2":
+        trainerCatchesPokemon(4, name)
+        print("Charmander! Fire up!")
         return
-
-
+    if choice == "3":
+        trainerCatchesPokemon(7,name)
+        print("Squirtle squirt!")
+        return
     return 0
 
 def wildPokemon(pID):
@@ -154,7 +163,7 @@ def trainerCatchesPokemon(pID, name):
     else:
         gender = "F"
 
-    query = "INSERT INTO `wild_pokemon_caught_by_trainers` (`pokemonID`, `wild_pokemon_pID`, `trainers_tID`, `pGender`, `pLevel`, `personalName`, `pokeHP`, `pokeHPMAX`) VALUES (NULL,"+str(pID)+", 1, '"+gender+"', 1, '"+name+"',100,100)"
+    query = "INSERT INTO `wild_pokemon_caught_by_trainers` (`pokemonID`, `wild_pokemon_pID`, `trainers_tID`, `pGender`, `pLevel`, `personalName`, `pokeHP`, `pokeHPMAX`) VALUES (NULL,"+str(pID)+","+str(settings.trainerID)+", '"+gender+"', 1, '"+name+"',100,100)"
     cursor.execute(query)
     con.commit()
     cursor.close()
