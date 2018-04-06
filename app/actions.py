@@ -162,12 +162,14 @@ def trainerCatchesPokemon(pID, name):
         gender = "M"
     else:
         gender = "F"
-
-    query = "INSERT INTO `wild_pokemon_caught_by_trainers` (`pokemonID`, `wild_pokemon_pID`, `trainers_tID`, `pGender`, `pLevel`, `personalName`, `pokeHP`, `pokeHPMAX`) VALUES ("+str(settings.caughtPokeID)+","+str(pID)+","+str(settings.trainerID)+", '"+gender+"', 1, '"+name+"',100,100)"
+    count = db.returnTrainerCatchCount(settings.trainerID)
+    print("current count: "+str(count))
+    query = "INSERT INTO `wild_pokemon_caught_by_trainers` (`pokemonID`, `wild_pokemon_pID`, `trainers_tID`, `pGender`, `pLevel`, `personalName`, `pokeHP`, `pokeHPMAX`) VALUES ("+str(count)+","+str(pID)+","+str(settings.trainerID)+", '"+gender+"', 1, '"+name+"',100,100)"
     cursor.execute(query)
     con.commit()
     cursor.close()
     con.close()
+    db.incrementTrainerCatchCount(settings.trainerID)
     return
 
 def listTowns():

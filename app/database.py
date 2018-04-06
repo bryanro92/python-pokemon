@@ -6,7 +6,7 @@ def mySqlCon():
 def createUser(name, gen):
     con = mySqlCon()
     cursor = con.cursor()
-    string = "INSERT INTO `trainers` (`tID`, `tName`, `tGender`, `towns_townID`) VALUES (NULL,'"+name+"', '"+gen+"', '0')"
+    string = "INSERT INTO `trainers` (`tID`, `tName`, `tGender`, `towns_townID`, `numberOfPokemon`) VALUES (NULL,'"+name+"', '"+gen+"', '0','0')"
     cursor.execute(string)
     con.commit()
     message = "\nWelcome to the pokemon world "+name+"."
@@ -14,6 +14,7 @@ def createUser(name, gen):
     cursor.close()
     con.close()
     message = "Your trainer identification number is:\n\t"+str(getNewtID())+"\nDon't forget this! It will be used to track your progress.\n"
+    incrementTrainerCatchCount(getNewtID())
     return message
 
 def getNewtID():
@@ -37,10 +38,32 @@ def currentUser(tID):
     con.close()
     return name
 
+def returnTrainerCatchCount(tID):
+    con = mySqlCon()
+    cursor = con.cursor()
+    cursor.execute("select numberOfPokemon from trainers where tID like "+str(tID))
+    result = cursor.fetchone()
+    cursor.close()
+    con.close()
+    return result[0]
+
+def incrementTrainerCatchCount(tID):
+    con = mySqlCon()
+    cursor = con.cursor()
+    count = returnTrainerCatchCount(tID)
+    count = count+1
+    query = "UPDATE trainers set numberOfPokemon = "+str(count)+" where tID = "+str(tID)
+    cursor.execute(query)
+    con.commit()
+    cursor.close()
+    con.close()
+    return count
+
 def returnPokemonIDforTrainer(pID, tID):
     con = mySqlCon()
     cursor = con.cursor()
     query = "Select wild_pokemon_pID from wild_pokemon_caught_by_trainers where trainers_tID like "+tID+ " and pokemonID like "+pID
+
     cursor.execute(query)
     poke = cursor.fetchone()
     cursor.close()
