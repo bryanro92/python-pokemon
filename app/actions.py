@@ -91,7 +91,29 @@ def catchPokemon(tID):
     return
 
 def listInventory():
+    con = db.mySqlCon()
+    cursor = con.cursor()
+    query = "select items_itemID from trainers_has_items where tID like "+str(settings.trainerID)
+    cursor.execute(query)
+    results = cursor.fetchall()
+    if len(results) < 1:
+        print("Your inventory is empty!")
+    else:
+        print("Inventory: ")
+        i = 1
+        for item in results:
+            print("\t"+str(i)+") "+ itemID2Name(item[0]))
+            i=i+1
+
     return 0
+
+def itemID2Name(iID):
+    con = db.mySqlCon()
+    cursor = con.cursor()
+    query = "select itemName from items where itemID like "+str(iID)
+    cursor.execute(query)
+    result = cursor.fetchone()
+    return result[0]
 
 def giveItemToPoke(iID):
     return 0

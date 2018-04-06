@@ -98,6 +98,7 @@ def actions():
     \t5 to travel to a new location
     \t6 to attempt to catch a wild pokemon
     \t7 to battle the gym leader in current town
+    \t8 list inventory
     \t-------------------------------------------
     \texit to exit the game
     """
@@ -118,7 +119,8 @@ def actions():
         setGameOver(True)
     if ans =="6":
         act.catchPokemon(settings.trainerID)
-
+    if ans =="8":
+        act.listInventory()
 
 
 
