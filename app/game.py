@@ -99,6 +99,7 @@ def actions():
     \t6 to attempt to catch a wild pokemon
     \t7 to battle the gym leader in current town
     \t8 list inventory
+    \t9 list details of a pokemon
     \t-------------------------------------------
     \texit to exit the game
     """
@@ -121,6 +122,7 @@ def actions():
         act.catchPokemon(settings.trainerID)
     if ans =="8":
         act.listInventory()
-
+    if ans == "9":
+        act.pokeDetails()
 
 

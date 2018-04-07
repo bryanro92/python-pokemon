@@ -118,7 +118,19 @@ def itemID2Name(iID):
 def giveItemToPoke(iID):
     return 0
 
-def pokeDetails(pID):
+def pokeDetails():
+    listCaughtPokemon(settings.trainerID)
+    selection = input("Select a pokemon to display its detailed information: ")
+    con = db.mySqlCon()
+    cursor = con.cursor()
+    query = "select * from wild_pokemon_caught_by_trainers where pokemonID like "+str(selection)+" and trainers_tID like "+str(settings.trainerID)
+    cursor.execute(query)
+    results = cursor.fetchone()
+    cursor.close()
+    con.close()
+    for i in results:
+        print(i)
+
     return 0
 
 def chooseStartingPokemon(tID):
