@@ -128,9 +128,8 @@ def pokeDetails():
     results = cursor.fetchone()
     cursor.close()
     con.close()
-    for i in results:
-        print(i)
-
+    print("Pokemon | NickName | Level | current HP | MAX HP | item")
+    print(str(wildPokeID2Name(results[1]))+"  "+str(results[5])+"   "+str(results[4])+"\t\t"+str(results[6])+"    "+str(results[7]) + "\t "+str(results[8]))
     return 0
 
 def chooseStartingPokemon(tID):
