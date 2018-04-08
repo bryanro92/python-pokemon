@@ -101,6 +101,7 @@ def actions():
     \t8 list inventory
     \t9 list details of a pokemon
     \t10 give item to pokemon
+    \t11 pick up a free pokeball!
     \t-------------------------------------------
     \texit to exit the game
     """
@@ -127,5 +128,7 @@ def actions():
         act.pokeDetails()
     if ans == "10":
         act.giveItemToPoke()
+    if ans =="11":
+        act.addItem2Inventory(4)
 
 

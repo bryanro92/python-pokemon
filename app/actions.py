@@ -107,6 +107,18 @@ def listInventory():
 
     return 0
 
+def addItem2Inventory(itemID):
+    inventorySize = db.returnItemCount(settings.trainerID)
+    con = db.mySqlCon()
+    cursor = con.cursor()
+    query = "INSERT INTO `pokemon`.`trainers_has_items` (`itemNum`, `tID`, `items_itemID`) VALUES ('"+str(inventorySize+1)+"',"+str(settings.trainerID)+", '"+str(itemID)+"');"
+    cursor.execute(query)
+    con.commit()
+    cursor.close()
+    con.close()
+    return
+
+
 def itemID2Name(iID):
     con = db.mySqlCon()
     cursor = con.cursor()

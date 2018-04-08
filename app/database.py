@@ -38,6 +38,14 @@ def currentUser(tID):
     con.close()
     return name
 
+def returnItemCount(tID):
+    con = mySqlCon()
+    cursor = con.cursor()
+    query = "select itemNum from trainers_has_items where tID like "+str(tID)
+    cursor.execute(query)
+    count = cursor.fetchall()
+    return len(count)
+
 def returnTrainerCatchCount(tID):
     con = mySqlCon()
     cursor = con.cursor()
