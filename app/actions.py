@@ -115,8 +115,22 @@ def itemID2Name(iID):
     result = cursor.fetchone()
     return result[0]
 
-def giveItemToPoke(iID):
-    return 0
+def trainerItemID2Name(iID):
+    con = db.mySqlCon()
+    cursor = con.cursor()
+    query = "select items_itemID from trainers_has_items where itemNum like "+str(iID)
+    cursor.execute(query)
+    result = cursor.fetchone()
+    return itemID2Name(result[0])
+
+def giveItemToPoke():
+    selection = pokeDetails()
+    listInventory()
+    item = input("Please select an item you'd like to give to "+trainerPokeID2Name(selection)+": ")
+    print(trainerItemID2Name(item))
+
+
+    return
 
 def pokeDetails():
     listCaughtPokemon(settings.trainerID)
@@ -130,7 +144,7 @@ def pokeDetails():
     con.close()
     print("Pokemon | NickName | Level | current HP | MAX HP | item")
     print(str(wildPokeID2Name(results[1]))+"  "+str(results[5])+"   "+str(results[4])+"\t\t"+str(results[6])+"    "+str(results[7]) + "\t "+str(results[8]))
-    return 0
+    return selection
 
 def chooseStartingPokemon(tID):
     choice = input("Please select one of the following starting pokemon:\n\t1) Bulbasaur\n\t2) Charmander\n\t3) Squirtle\n\tchoice: ")

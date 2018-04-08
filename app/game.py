@@ -100,6 +100,7 @@ def actions():
     \t7 to battle the gym leader in current town
     \t8 list inventory
     \t9 list details of a pokemon
+    \t10 give item to pokemon
     \t-------------------------------------------
     \texit to exit the game
     """
@@ -124,5 +125,7 @@ def actions():
         act.listInventory()
     if ans == "9":
         act.pokeDetails()
+    if ans == "10":
+        act.giveItemToPoke()
 
 
