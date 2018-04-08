@@ -140,7 +140,13 @@ def giveItemToPoke():
     listInventory()
     item = input("Please select an item you'd like to give to "+trainerPokeID2Name(selection)+": ")
     print(trainerItemID2Name(item))
-
+    query = "UPDATE wild_pokemon_caught_by_trainers SET `trainers_itemNum`='"+str(item)+"' WHERE `pokemonID`='"+str(selection)+"' and`trainers_tID`='"+str(settings.trainerID)+"';"
+    con = db.mySqlCon()
+    cursor = con.cursor()
+    cursor.execute(query)
+    con.commit()
+    cursor.close()
+    con.close()
 
     return
 
@@ -154,8 +160,11 @@ def pokeDetails():
     results = cursor.fetchone()
     cursor.close()
     con.close()
-    print("Pokemon | NickName | Level | current HP | MAX HP | item")
-    print(str(wildPokeID2Name(results[1]))+"  "+str(results[5])+"   "+str(results[4])+"\t\t"+str(results[6])+"    "+str(results[7]) + "\t "+str(results[8]))
+    print("Pokemon, NickName, Level, current HP, MAX HP, item")
+    if str(results[8]) == "None":
+        print(str(wildPokeID2Name(results[1]))+", "+str(results[5])+", "+str(results[4])+", "+str(results[6])+", "+str(results[7]) + ", "+"none")
+    else:
+        print(str(wildPokeID2Name(results[1]))+", "+str(results[5])+", "+str(results[4])+", "+str(results[6])+", "+str(results[7]) + ", "+str(trainerItemID2Name(results[8])))
     return selection
 
 def chooseStartingPokemon(tID):
