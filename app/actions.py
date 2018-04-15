@@ -9,7 +9,6 @@ def listCaughtPokemon(tID):
     query = "select pokemonID from wild_pokemon_caught_by_trainers where trainers_tID like "+str(tID)
     cursor.execute(query)
     result = cursor.fetchall()
-    print (result)
     if len(result) < 1:
         print("You have not caught any pokemon!")
     else:
@@ -79,7 +78,6 @@ def catchPokemon(tID):
     pokeList = listLocalPokemon(tID)
 
     choice = pokeList[random.randrange(len(pokeList)-1)]
-    print(choice[0])
     print("A wild "+wildPokeID2Name(choice[0])+" has appeared!")
     ans = input("Press 1 to battle or 2 to run away: ")
     if ans == "1":
@@ -148,6 +146,23 @@ def giveItemToPoke():
     cursor.close()
     con.close()
 
+    return
+
+def returnPokesItem(pID):
+    query = "select trainers_itemNum from wild_pokemon_caught_by_trainers where trainers_tID like "+str(settings.trainerID)+" and pokemonID like "+str(pID)
+    con = db.mySqlCon()
+    cursor = con.cursor()
+    cursor.execute(query)
+    results = cursor.fetchone()
+    cursor.close()
+    con.close()
+    if results[0] == "None":
+        return "No item"
+    item = trainerItemID2Name(results[0])
+    return item
+
+def pokeUseItem(pID):
+    print (returnPokesItem(str(pID)))
     return
 
 def pokeDetails():
